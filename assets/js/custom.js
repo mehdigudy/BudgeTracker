@@ -1,5 +1,1 @@
-/* ----------------------------
-/*  Name: BUDGET TRACKER
-    Author: 
-    Version: 
-/* -------------------------- */
+import { BudgetTracker } from "./BudgetTracker.js"

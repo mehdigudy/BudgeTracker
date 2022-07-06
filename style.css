@@ -8,7 +8,6 @@
 
 .budget-tracker {
   width: 750px;
-
   background-color: #f2f2f2;
   padding: 20px;
   box-sizing: border-box;
@@ -48,4 +47,40 @@
   border: 1px solid #dddddd;
   border-radius: 5px;
   outline: none;
+}
+
+.input:focus{
+  border: 1px solid rgb(7, 109, 66);
+}
+
+.delete-entry{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 30px;
+  border: none;
+  outline: none;
+  color :red ;
+  border-radius: 5px;
+  background: none;
+  cursor: pointer;
+}
+
+.delete-entry:hover{
+  background-color: rgb(7, 109, 66);
+  color: white;
+}
+
+.controls , 
+.summry{
+  text-align: right;
+}
+
+
+.h{
+  font-size: 10px;
+  height: 100px;
+  width: 100px;
+  font-weight: bold;
+  text-align:left ;
 }
