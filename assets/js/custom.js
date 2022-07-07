@@ -1,4 +1,5 @@
-import { BudgetTracker } from "./BudgetTracker.js"
+import BudgeTracker from './BudgetTracker.js';
 
 
-new BudgetTracker("#app")
+new BudgeTracker("#app");
+
