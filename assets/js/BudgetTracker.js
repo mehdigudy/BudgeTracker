@@ -2,6 +2,15 @@ export default class BudgeTracker {
 
     #root;
 
+    constructor(querySelectorString) {
+
+        this.#root = document.querySelector(querySelectorString); //return element
+        this.#root.innerHTML = BudgeTracker.html();
+        this.#root.querySelector('.new-entry').addEventListener('click', this.#onNewEntryBtnClick());
+        this.#load();
+    }
+
+
     static entryHtml() {
         return `
                <tr>
@@ -29,16 +38,6 @@ export default class BudgeTracker {
                     </td>
                 </tr>
         `;
-    }
-
-    constructor(querySelectorString) {
-
-        this.#root = document.querySelector(querySelectorString); //return element
-        this.#root.innerHTML = BudgeTracker.html();
-        this.#root.querySelector('.new-entry').addEventListener('click', e => {
-            this.#onNewEntryBtnClick(e)
-        });
-        this.#load();
     }
 
     static html = () => {
@@ -77,20 +76,20 @@ export default class BudgeTracker {
             </tfoot>
         `
 
-    }
+    };
 
-    #onNewEntryBtnClick = (e) => {
+    #onNewEntryBtnClick = () => {
         this.#addEntry();
 
-    }
+    };
     #onDeleteEntryBtnClick = (e) => {
         e.target.closest("tr").remove();
         this.#save()
-    }
+    };
     #getEntryRows = () => {
         return Array.from(this.#root.querySelectorAll(".entries tr"));
 
-    }
+    };
     #updateSummary = () => {
         const total = this.#getEntryRows().reduce((total, row) => {
             const amount = row.querySelector(".input-amount").value;
@@ -99,14 +98,12 @@ export default class BudgeTracker {
             return total + (amount * modifier);
         }, 0);
 
-        const totalFormatted = new Intl.NumberFormat('en-US', {
+        this.#root.querySelector(".total").textContent = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
 
         }).format(total);
-
-        this.#root.querySelector(".total").textContent = totalFormatted;
-    }
+    };
     #save = () => {
         const data = this.#getEntryRows();
         data.map(row => {
@@ -116,10 +113,10 @@ export default class BudgeTracker {
                 type: row.querySelector('.input-type').value,
                 amount: parseFloate(row.querySelector('.input-amount').value)
             }
-        })
+        });
         loacalStorage.setItem('budget-tracker-entries', JSON.stringify(data));
         this.#updateSummary();
-    }
+    };
     #addEntry = (entry = {}) => {
         this.#root.querySelector(".entries").insertAdjacentHTML('beforeend', BudgeTracker.entryHtml());
         const row = this.#root.querySelector(".entries tr:last-of-type");
@@ -127,6 +124,7 @@ export default class BudgeTracker {
         row.querySelector(".input-description").value = entry.description || '';
         row.querySelector(".type-type").value = entry.type || 'income';
         row.querySelector(".type-amount").value = entry.amount || 0;
+
         row.querySelector(".delete-entry").addEventListener('click', e => {
             this.#onDeleteEntryBtnClick(e);
 
@@ -136,7 +134,7 @@ export default class BudgeTracker {
                 this.#save()
             })
         });
-    }
+    };
     #load = () => {
         const entries = JSON.parse(localStorage.getItem('budget-tracker-entries') || '[]');
         for (const entry of entries) {
