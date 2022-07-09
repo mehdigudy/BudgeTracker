@@ -9,8 +9,10 @@ body {
 
 #app {
   display: flex;
-  min-width: 50vw;
-  min-height: 50vh;
+
+  border: 3px solid black;
+  align-items: center;
+  justify-content: center;
 
 }
 .budget-tracker {
