@@ -10,10 +10,9 @@ body {
 #app {
   display: flex;
 
-  border: 3px solid black;
+  border: 1px solid rgb(7, 109, 66);
   align-items: center;
   justify-content: center;
-
 }
 .budget-tracker {
   width: 750px;
