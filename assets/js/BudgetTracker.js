@@ -43,6 +43,7 @@ export default class BudgetTracker {
         `;
     }
 
+    
     static entryHtml() {
         return `
             <tr>
